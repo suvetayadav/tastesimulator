@@ -8,3 +8,60 @@
 * The current is changed by using the accurate size of potentiometer. Here, we have used **10kΩ** potentiometer before that a fixed resistance of **5kΩ** is kept in series with the potentiometer.
 * This can able to generate a current between **20μA** or **30mA**.
 * The temperature is being changed using a peltier module. The temperature we keeping are from **20°C** to **35°C**. At first, the temperature keeps constantly increases and when reached the limited value the power to the peltier module is cut-off by using a thermostat. Thus, the temperature decreases.
+
+
+code(genrated the frequency for the separate tastes)
+
+#include <TimerOne.h>
+//UNO only
+
+void setup()
+{
+  pinMode(9, OUTPUT);
+  pinMode(10, OUTPUT);
+
+  Serial.begin(9600);
+
+
+
+  //Timer1.pwm(10,255);    // 25% DC on pin 10
+
+  // D.C.
+  // 10KHz
+  // You can use 2 to 1023
+  // 0 & 1 gives a constant LOW
+  // 1024 gives a constant HIGH
+  // 2 gives ~125ns HIGH pulses
+  // 1023 gives ~125ns low pulses
+  // 512 gives 50us
+}
+
+void loop()
+{
+
+  int num = Serial.read();
+
+  if(num == '1'){
+  
+  Timer1.initialize(20000);  // Frequency, 20000us = 50hz, 6666us=150hz, 1000us=1000hz,833us=1200,1250us=800hz,1111us=900hz
+  Timer1.pwm(9, 512);      // 50% DC on pin 9
+  Serial.println("Bitter");
+  }
+
+  if(num == '2'){
+  
+  Timer1.initialize(6666);  // Frequency, 20000us = 50hz, 6666us=150hz, 1000us=1000hz,833us=1200,1250us=800hz,1111us=900hz
+  Timer1.pwm(9, 512);      // 50% DC on pin 9
+  Serial.println("Sour");
+  }
+
+  if(num == '3'){
+  
+  Timer1.initialize(7676);  // Frequency, 20000us = 50hz, 6666us=150hz, 1000us=1000hz,833us=1200,1250us=800hz,1111us=900hz
+  Timer1.pwm(9, 512);      // 50% DC on pin 9
+  Serial.println("Salty");
+  }
+
+
+
+}
